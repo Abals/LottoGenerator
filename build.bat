@@ -16,24 +16,8 @@ goto :fail
 
 :find_python
 
-rem --- Find a working Python (3.x with tkinter) --------------------------
-rem  1) py / python commands
-rem  2) Python install manager location   (%LOCALAPPDATA%\Python\...)
-rem  3) Classic per-user installer         (%LOCALAPPDATA%\Programs\Python\...)
-rem  4) Classic all-users installer        (%ProgramFiles%\Python...)
-set "PY="
-call :try py
-call :try python
-for /d %%D in ("%LOCALAPPDATA%\Python\*") do call :try "%%~fD\python.exe"
-for /d %%D in ("%LOCALAPPDATA%\Programs\Python\Python3*") do call :try "%%~fD\python.exe"
-for /d %%D in ("%ProgramFiles%\Python3*") do call :try "%%~fD\python.exe"
-
-if not defined PY (
-    echo [ERROR] Could not find a usable Python.
-    echo         Install Python from https://www.python.org/downloads/
-    echo         and run this file again.
-    goto :fail
-)
+call "%~dp0ensure_python.bat"
+if errorlevel 1 goto :fail
 
 echo Using Python:
 "%PY%" -c "import sys; print('  ' + sys.executable + '  (' + sys.version.split()[0] + ')')"
@@ -65,15 +49,6 @@ echo ============================================================
 explorer "%CD%\dist"
 pause
 exit /b 0
-
-
-rem --- try one Python candidate: keep it if it runs and has tkinter -------
-:try
-if defined PY goto :eof
-("%~1" -c "import tkinter") >nul 2>&1
-if errorlevel 1 goto :eof
-set "PY=%~1"
-goto :eof
 
 
 :fail

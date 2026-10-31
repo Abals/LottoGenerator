@@ -12,7 +12,9 @@
 1~1246회(2026-10-17) 당첨번호가 내장되어 있어서 처음 실행할 때 수천 번 조회하지 않습니다. 이후 회차만 동행복권에서 받아옵니다.
 
 ## 실행 방법
-Python 3.8 이상이 필요합니다. ([python.org](https://www.python.org/downloads/)에서 설치, 설치 화면에서 "Add python.exe to PATH" 체크)
+Python 3.8 이상과 tkinter가 필요합니다. `run.bat`과 `build.bat`은 사용 가능한 Python을 먼저 찾고, 없으면 python.org의 공식 Python 3.13.12 설치 파일을 내려받아 서명을 검증한 뒤 현재 사용자 계정에 자동 설치합니다. 설치가 끝나면 앱 실행 또는 빌드가 이어집니다. 처음 자동 설치할 때는 인터넷 연결이 필요합니다.
+
+`ensure_python.bat`, `install_python.ps1`도 두 배치 파일과 같은 폴더에 두세요. 자동 설치 위치는 `%LOCALAPPDATA%\Programs\Python\LottoGeneratorPython313`입니다.
 
 - **바로 실행**: `run.bat` 더블클릭
 - **exe 만들기**: `build.bat` 더블클릭 → `dist\LottoGenerator.exe` 생성. (build.bat은 lotto_app.py와 같은 폴더에 있어야 합니다) 이 exe 하나만 다른 PC에 복사해서 써도 됩니다(그 PC에는 Python 불필요).
